@@ -1,0 +1,177 @@
+{
+  "name": "ai-assistant",
+  "displayName": "AI Assistant",
+  "description": "An extenstion that uses ollama to assist you in coding without depending on external models",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.98.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onLanguage"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ai-assistant.askOllama",
+        "title": "Ask Ollama"
+      },
+      {
+        "command": "ai-assistant.toggleInlineSuggestions",
+        "title": "Toggle Inline Suggestions"
+      },
+      {
+        "command": "ai-assistant.configureOllama",
+        "title": "Configure Ollama"
+      },
+      {
+        "command": "ai-assistant.selectModel",
+        "title": "Select AI Model"
+      },
+      {
+        "command": "ai-assistant.explainCode",
+        "title": "AI: Explain Code"
+      },
+      {
+        "command": "ai-assistant.refactorCode",
+        "title": "AI: Refactor Code"
+      },
+      {
+        "command": "ai-assistant.documentCode",
+        "title": "AI: Document Code"
+      },
+      {
+        "command": "ai-assistant.selectContextFiles",
+        "title": "Select Files for AI Context"
+      },
+      {
+        "command": "ai-assistant.stopGeneration",
+        "title": "Stop AI Generation",
+        "icon": "$(debug-stop)"
+      }
+    ],
+    "keybindings":[
+      {
+        "command": "ai-assistant.selectModel",
+        "key": "ctrl+alt+s",
+        "mac": "cmd+alt+s",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "ai-assistant.askOllama",
+        "key": "ctrl+alt+a",
+        "mac": "cmd+alt+a",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "ai-assistant.toggleInlineSuggestions",
+        "key": "ctrl+alt+i",
+        "mac": "cmd+alt+i",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "ai-assistant.refactorCode",
+        "key": "ctrl+alt+r",
+        "mac": "cmd+alt+r",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "ai-assistant.explainCode",
+        "key": "ctrl+alt+e",
+        "mac": "cmd+alt+e",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "ai-assistant.documentCode",
+        "key": "ctrl+alt+d",
+        "mac": "cmd+alt+d",
+        "when": "editorHasSelection"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorHasSelection",
+          "command": "ai-assistant.explainCode",
+          "group": "ai-assistant"
+        },
+        {
+          "when": "editorHasSelection",
+          "command": "ai-assistant.refactorCode",
+          "group": "ai-assistant"
+        },
+        {
+          "when": "editorHasSelection",
+          "command": "ai-assistant.documentCode",
+          "group": "ai-assistant"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AI Assistant",
+      "properties": {
+        "ai-assistant.ollamaServerUrl": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "URL of the Ollama server"
+        },
+        "ai-assistant.defaultModel": {
+          "type": "string",
+          "default": "gemma3:1b",
+          "description": "Default Ollama model to use"
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "ai-assistant",
+          "title": "AI Assistant",
+          "icon": "resources/bot.svg"
+        }
+      ]
+    },
+    "views": {
+      "ai-assistant": [
+        {
+          "id": "ai-assistant.chat",
+          "name": "Chat",
+          "icon": "resources/bot.svg"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.98.0",
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.21.0",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.7.3",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "axios": "^1.8.4",
+    "node-fetch": "^3.3.2"
+  }
+}
