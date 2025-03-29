@@ -1,56 +1,77 @@
 {
-  "name": "ai-assistant",
-  "displayName": "AI Assistant",
-  "description": "An extenstion that uses ollama to assist you in coding without depending on external models",
-  "version": "0.0.1",
+  "name": "code-pilot",
+  "displayName": "CodePilot AI Assistant",
+  "description": "A powerful AI coding assistant powered by Ollama models",
+  "version": "1.0.0",
+  "publisher": "nishant-vscode-ext",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.98.0"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Programming Languages",
+    "Machine Learning",
+    "Education"
   ],
+  "keywords": [
+    "ai",
+    "assistant",
+    "codepilot",
+    "ollama",
+    "llm",
+    "chat",
+    "copilot",
+    "code"
+  ],
+  "icon": "resources/bot128.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nishant9083/ai-assistant"
+  },
   "activationEvents": [
     "onStartupFinished",
     "onLanguage"
   ],
   "main": "./dist/extension.js",
+  "files": [],
   "contributes": {
     "commands": [
       {
         "command": "ai-assistant.askOllama",
-        "title": "Ask Ollama"
+        "title": "CodePilot: Chat"
       },
       {
         "command": "ai-assistant.toggleInlineSuggestions",
-        "title": "Toggle Inline Suggestions"
+        "title": "CodePilot: Toggle Inline Suggestions"
       },
       {
         "command": "ai-assistant.configureOllama",
-        "title": "Configure Ollama"
+        "title": "CodePilot: Configure"
       },
       {
         "command": "ai-assistant.selectModel",
-        "title": "Select AI Model"
+        "title": "CodePilot: Select AI Model"
       },
       {
         "command": "ai-assistant.explainCode",
-        "title": "AI: Explain Code"
+        "title": "CodePilot: Explain Code"
       },
       {
         "command": "ai-assistant.refactorCode",
-        "title": "AI: Refactor Code"
+        "title": "CodePilot: Refactor Code"
       },
       {
         "command": "ai-assistant.documentCode",
-        "title": "AI: Document Code"
+        "title": "CodePilot: Document Code"
       },
       {
         "command": "ai-assistant.selectContextFiles",
-        "title": "Select Files for AI Context"
+        "title": "CodePilot: Select Files for Context"
       },
       {
         "command": "ai-assistant.stopGeneration",
-        "title": "Stop AI Generation",
+        "title": "CodePilot: Stop AI Generation",
         "icon": "$(debug-stop)"
       }
     ],
@@ -112,7 +133,7 @@
       ]
     },
     "configuration": {
-      "title": "AI Assistant",
+      "title": "CodePilot",
       "properties": {
         "ai-assistant.ollamaServerUrl": {
           "type": "string",
@@ -123,26 +144,23 @@
           "type": "string",
           "default": "gemma3:1b",
           "description": "Default Ollama model to use"
+        },
+        "ai-assistant.chatHistoryEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable chat history storage"
+        },
+        "ai-assistant.maxChatsToKeep": {
+          "type": "number",
+          "default": 50,
+          "description": "Maximum number of chat histories to keep"
+        },
+        "ai-assistant.autoAssociateWorkspaces": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically associate chats with the current workspace"
         }
       }
-    },
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "ai-assistant",
-          "title": "AI Assistant",
-          "icon": "resources/bot.svg"
-        }
-      ]
-    },
-    "views": {
-      "ai-assistant": [
-        {
-          "id": "ai-assistant.chat",
-          "name": "Chat",
-          "icon": "resources/bot.svg"
-        }
-      ]
     }
   },
   "scripts": {

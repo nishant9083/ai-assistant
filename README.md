@@ -1,100 +1,85 @@
-# ai-assistant README
+# CodePilot AI Assistant
 
-This is the README for your extension "ai-assistant". After writing up a brief description, we recommend including the following sections.
+![CodePilot Logo](resources/bot128_white.png)
+
+CodePilot is a powerful AI coding assistant for VS Code that connects to Ollama models to provide intelligent code assistance directly in your editor.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **AI Chat Interface**: Interact with AI models through a dedicated chat panel
+- **Template System**: Choose from various specialized prompt templates for different coding tasks
+- **Context-Aware**: Uses your current file or workspace as context for more relevant responses
+- **Code Actions**: Right-click on code to explain, refactor, or document it with AI
+- **Chat History**: Keep track of all your conversations with the AI
+- **File Context**: Select specific files to include as context for your queries
+- **Themes**: Automatically adapts to your VS Code theme
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+![CodePilot Screenshot](resources/image.png)
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- VS Code 1.98.0 or higher
+- [Ollama](https://ollama.com/) installed and running on your machine
+- At least one model pulled in Ollama (recommended: codellama:7b-instruct)
+
+## Installation
+
+1. Install the extension from the VS Code Marketplace
+2. Install [Ollama](https://ollama.com/) if you haven't already
+3. Pull a model using Ollama (e.g., `ollama pull codellama:7b-instruct`)
+4. Start Ollama on your machine
+5. Configure the extension in VS Code settings
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+CodePilot contributes the following settings:
 
-For example:
+* `ai-assistant.ollamaEndpoint`: URL for your Ollama instance (default: "http://localhost:11434")
+* `ai-assistant.model`: Default Ollama model to use (default: "codellama:7b-instruct")
+* `ai-assistant.maxContextFiles`: Maximum number of files to include in context (default: 10)
+* `ai-assistant.maxHistoryEntries`: Maximum number of chat histories to keep (default: 30)
+* `ai-assistant.autoAssociateWorkspaces`: Automatically associate chats with the current workspace (default: true)
 
-This extension contributes the following settings:
+## Usage
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+### Starting a Chat
 
-## Known Issues
+1. Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac) to open the command palette
+2. Type "CodePilot: Chat" and press Enter
+3. Type your question in the chat panel and press Enter
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+### Using Code Actions
+
+1. Select some code in your editor
+2. Right-click to open the context menu
+3. Choose "Explain Code", "Refactor Code", or "Document Code"
+
+### Using Templates
+
+1. In the chat panel, type `/` to see available templates
+2. Select a template to use for your next question
+3. Type your specific question and press Enter
+
+### Including File Context
+
+1. Click the "No files selected" button in the chat panel
+2. Select files to include as context for your queries
+3. Ask your question with the selected files as context
+
+## Tips
+
+- Use the `/` command to access specialized templates for different tasks
+- Include specific files as context when asking about larger projects
+- Try different models for different types of tasks
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+See the [CHANGELOG](CHANGELOG.md) for details about each release.
 
-### 1.0.0
+## Privacy & Data
 
-Initial release of ...
+CodePilot runs entirely locally and doesn't send your code to any external servers beyond your local Ollama instance.
 
-### 1.0.1
+## License
 
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
-
-
-ai-assistant/
-├── src/
-│   ├── extension.ts         # Main entry point
-│   ├── ollama/
-│   │   ├── client.ts        # Ollama API client
-│   │   └── models.ts        # Model definitions and configs
-│   ├── features/
-│   │   ├── inlineSuggestions.ts  # Code completion
-│   │   ├── chatInterface.ts      # Chat UI
-│   │   └── contextProvider.ts    # Workspace context extraction
-│   ├── utils/
-│   │   ├── tokenizer.ts     # For context window management
-│   │   └── configuration.ts # Extension settings
-│   └── test/
-│       └── extension.test.ts  # Tests
-├── webview/                 # UI for chat interface
-│   ├── chatView.html
-│   ├── chatView.css
-│   └── chatView.js
-└── package.json            # Updated manifest
-
-
-Model Selector: Add UI to switch between available Ollama models
-Prompt Templates: Create specialized templates for different tasks
-Code Actions: Add right-click menu for "Explain code", "Refactor code", "Document code"
-Status Bar Integration: Show active model and connection status
-File/Folder Context: Allow selecting files to include in the context
+This extension is licensed under the MIT License.

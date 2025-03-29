@@ -109,7 +109,7 @@ export class CodeActionsProvider implements vscode.CodeActionProvider {
         prompt: string
     ): Promise<void> {
         // Show processing indicator
-        const panel = this.createOutputPanel(`AI Assistant: ${this.capitalize(type)} Code`);
+        const panel = this.createOutputPanel(`CodePilot: ${this.capitalize(type)} Code`);
 
         // Add stop button to the output panel
         const stopButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 0);

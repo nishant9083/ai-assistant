@@ -1,58 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Assistant Chat</title>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-  <link rel="stylesheet" href="{{cssUri}}">
-  <link rel="icon" href="{{aiImgUri}}" type="image/x-icon">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodePilot</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <link rel="stylesheet" href="{{cssUri}}" />
+    <link rel="icon" href="{{aiImgUri}}" type="image/x-icon" />
+    <style>
+      :root {
+        --vscode-bg: var(--vscode-editor-background);
+        --vscode-fg: var(--vscode-editor-foreground);
+        --vscode-input-bg: var(--vscode-input-background);
+        --vscode-input-fg: var(--vscode-input-foreground);
+        --vscode-input-border: var(--vscode-input-border);
+        --vscode-button-bg: var(--vscode-button-background);
+        --vscode-button-fg: var(--vscode-button-foreground);
+        --vscode-button-hover-bg: var(--vscode-button-hoverBackground);
+        --vscode-sidebar-bg: var(--vscode-sideBar-background);
+        --vscode-sidebar-fg: var(--vscode-sideBar-foreground);
+        --vscode-border: var(--vscode-panel-border);
+        --vscode-accent: var(--vscode-focusBorder, #007acc);
+        --vscode-code-bg: var(--vscode-textCodeBlock-background);
+      }
+    </style>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.2.4/purify.min.js"></script>
 
-  <script>
-    // Configure marked to work with Prism for syntax highlighting
-    document.addEventListener('DOMContentLoaded', () => {
-      marked.setOptions({
-        highlight: function(code, lang) {
-          if (Prism.languages[lang]) {
-            return Prism.highlight(code, Prism.languages[lang], lang);
-          } else {
-            return code;
-          }
-        }
+    <script>
+      // Configure marked to work with Prism for syntax highlighting
+      document.addEventListener("DOMContentLoaded", () => {
+        marked.setOptions({
+          highlight: function (code, lang) {
+            if (Prism.languages[lang]) {
+              return Prism.highlight(code, Prism.languages[lang], lang);
+            } else {
+              return code;
+            }
+          },
+        });
       });
-    });
-  </script>
-</head>
-<body>
-  <div class="controls">
-    <select id="template-selector">
-      <!-- Templates will be added dynamically -->
-    </select>
-    
-    <button id="file-context-button" class="file-context">No files selected</button>
-    
-    <div class="model-info">
-      Using:<span id="model-name">Loading...</span>
+    </script>
+  </head>
+  <body>
+    <!-- Add a button to toggle the sidebar -->
+    <div class="container">
+      <!-- <div class="sidebar hidden" id="sidebar">
+        <div class="chat-controls">
+          <button id="new-chat-button" class="new-chat-button">New Chat</button>
+        </div>
+        <div class="chat-list" id="chat-list">
+          
+          <div class="empty-chats">No chats found</div>
+        </div>
+      </div> -->
+
+      <div class="main-content">
+        <div class="controls">
+          <!-- <button id="toggle-sidebar-btn" class="toggle-sidebar-btn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-menu"
+            >
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button> -->
+          <div class="front-tools">
+            <button
+              type="button"
+              title="New Chat"
+              id="new-chat-btn"
+              class="new-chat-btn"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-plus"
+              >
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </button>
+            <button
+              type="button"
+              title="Chat History"
+              id="history-btn"
+              class="history-btn"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    opacity="0.5"
+                    d="M12 8V12L14.5 14.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M5.60414 5.60414L5.07381 5.07381V5.07381L5.60414 5.60414ZM4.33776 6.87052L3.58777 6.87429C3.58984 7.28556 3.92272 7.61844 4.33399 7.62051L4.33776 6.87052ZM6.87954 7.6333C7.29375 7.63539 7.63122 7.30129 7.6333 6.88708C7.63538 6.47287 7.30129 6.1354 6.88708 6.13332L6.87954 7.6333ZM5.07496 4.3212C5.07288 3.90699 4.73541 3.5729 4.3212 3.57498C3.90699 3.57706 3.5729 3.91453 3.57498 4.32874L5.07496 4.3212ZM3.82661 10.7849C3.88286 10.3745 3.59578 9.99627 3.1854 9.94002C2.77503 9.88377 2.39675 10.1708 2.3405 10.5812L3.82661 10.7849ZM18.8622 5.13777C15.042 1.31758 8.86873 1.27889 5.07381 5.07381L6.13447 6.13447C9.33358 2.93536 14.5571 2.95395 17.8016 6.19843L18.8622 5.13777ZM5.13777 18.8622C8.95796 22.6824 15.1313 22.7211 18.9262 18.9262L17.8655 17.8655C14.6664 21.0646 9.44291 21.0461 6.19843 17.8016L5.13777 18.8622ZM18.9262 18.9262C22.7211 15.1313 22.6824 8.95796 18.8622 5.13777L17.8016 6.19843C21.0461 9.44291 21.0646 14.6664 17.8655 17.8655L18.9262 18.9262ZM5.07381 5.07381L3.80743 6.34019L4.86809 7.40085L6.13447 6.13447L5.07381 5.07381ZM4.33399 7.62051L6.87954 7.6333L6.88708 6.13332L4.34153 6.12053L4.33399 7.62051ZM5.08775 6.86675L5.07496 4.3212L3.57498 4.32874L3.58777 6.87429L5.08775 6.86675ZM2.3405 10.5812C1.93907 13.5099 2.87392 16.5984 5.13777 18.8622L6.19843 17.8016C4.27785 15.881 3.48663 13.2652 3.82661 10.7849L2.3405 10.5812Z"
+                    fill="currentColor"
+                  />
+                </g>
+              </svg>
+            </button>
+
+            <button id="file-context-button" class="file-context">
+              No files selected
+            </button>
+          </div>
+
+          <div class="end-tools">
+            <button
+              type="button"
+              title="Delete Current Chat"
+              id="delete-chat-btn"
+              class="delete-chat-btn"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-trash-2"
+              >
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6L17 20H7L5 6"></path>
+                <path d="M10 11V17"></path>
+                <path d="M14 11V17"></path>
+              </svg>
+            </button>
+            <div class="model-info">
+              Using:<span id="model-name">Loading...</span>
+            </div>
+          </div>
+
+          <!-- Popup Notification -->
+          <div class="hist-popup chat-list" id="hist-popup">
+            <!-- <p>✅ Node Module Not Found Error</p>
+            <p class="timestamp">a day ago</p> -->
+            <div class="empty-chats">No chats found</div>
+          </div>
+        </div>
+
+        <div id="chat-history"></div>
+
+        <div class="input-area">
+          <div class="input-header">
+            <div id="template-indicator" class="template-indicator">
+              <span id="template-name"></span>
+              <button id="clear-template" class="clear-template-btn">×</button>
+            </div>
+          </div>
+
+          <div class="input-container">
+            <textarea
+              id="question-input"
+              placeholder="Ask CodePilot..."
+            ></textarea>
+
+            <!-- Add slash command menu -->
+            <div id="slash-command-menu" class="slash-command-menu">
+              <div class="slash-command-header">Select a template</div>
+              <div id="slash-command-list" class="slash-command-list">
+                <!-- Templates will be added dynamically -->
+              </div>
+            </div>
+
+            <div class="button-container">
+              <button id="ask-button" class="ask-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </button>
+              <button id="stop-button" class="stop-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-stop-circle"><circle cx="12" cy="12" r="10"></circle><rect x="9" y="9" width="6" height="6"></rect></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Context menu for chat items -->
+    <div id="chat-context-menu" class="context-menu">
+      <div class="menu-item" id="edit-chat-title">Rename</div>
+      <div class="menu-item" id="delete-chat">Delete</div>
+    </div>
+
+     <!-- Custom Context Menu -->
+     <div id="context-menu" class="context-menu">
+      <div class="context-menu-item" onclick="handleCopy(event)"> Copy </div>
+      <!-- <div class="context-menu-item" onclick="alert('Action 2')">⚡ Action 2</div>
+      <div class="context-menu-item" onclick="alert('Action 3')">📁 Action 3</div> -->
   </div>
-  
-  <div id="chat-history"></div>
-  
-  <div class="input-area">
-    <input type="text" id="question-input" placeholder="Ask AI Assistant..." />
-    <button id="ask-button">Ask</button>
-    <button id="stop-button" class="stop-button">Stop</button>
-  </div>
-  
-  <script>
-    // Define image URIs as global variables that the script.js can access
-    const userImgUri = "{{userImgUri}}";
-    const aiImgUri = "{{aiImgUri}}";
-  </script>
-  <script src="{{scriptUri}}"></script>
-</body>
+
+    <!-- Rename chat dialog -->
+    <div id="rename-dialog" class="dialog">
+      <div class="dialog-content">
+        <h3>Rename Chat</h3>
+        <input
+          type="text"
+          id="new-chat-title"
+          placeholder="Enter a new title"
+        />
+        <div class="dialog-buttons">
+          <button id="cancel-rename">Cancel</button>
+          <button id="confirm-rename">Rename</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Define image URIs as global variables that the script.js can access
+      const userImgUri = "{{userImgUri}}";
+      const aiImgUri = "{{aiImgUri}}";      
+    </script>
+    <script src="{{scriptUri}}"></script>
+  </body>
 </html>

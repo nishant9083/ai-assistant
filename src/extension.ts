@@ -9,7 +9,7 @@ import { CodeActionsProvider } from './features/codeActions';
 import { FileContextSelector } from './features/fileContextSelector';
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('AI Assistant is now active!');
+  console.log('CodePilot is now active!');
   
   // Initialize components
   const ollamaClient = new OllamaClient();
@@ -147,6 +147,24 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
   
+  // Add clear chat history command
+  const clearChatHistoryCommand = vscode.commands.registerCommand(
+    'ai-assistant.clearChatHistory',
+    async () => {
+      const answer = await vscode.window.showWarningMessage(
+        'Are you sure you want to clear all chat history? This cannot be undone.',
+        'Yes', 'No'
+      );
+      
+      if (answer === 'Yes') {
+        // This requires access to the ChatHistoryService
+        // We'll have the chatInterface expose this functionality
+        await vscode.commands.executeCommand('ai-assistant.askOllama'); // First make sure chat is open
+        vscode.commands.executeCommand('ai-assistant.clearCurrentChatHistory');
+      }
+    }
+  );
+  
   // Handle webview messages
   context.subscriptions.push(vscode.window.registerWebviewPanelSerializer('aiAssistantChat', {
     async deserializeWebviewPanel(webviewPanel: vscode.WebviewPanel, state: any) {
@@ -173,6 +191,7 @@ export function activate(context: vscode.ExtensionContext) {
     refactorCodeCommand,
     documentCodeCommand,
     stopGenerationCommand,
+    clearChatHistoryCommand,
     modelSelector
   );
 }

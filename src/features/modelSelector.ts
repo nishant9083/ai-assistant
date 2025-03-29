@@ -66,7 +66,7 @@ export class ModelSelector {
         
         if (this.isConnected) {
             this.statusBarItem.text = `$(hubot) ${model}`;
-            this.statusBarItem.tooltip = `AI Assistant: Using ${model} (Click to change)`;
+            this.statusBarItem.tooltip = `CodePilot: Using ${model} (Click to change)`;
             this.statusBarItem.backgroundColor = undefined;
         } else {
             this.statusBarItem.text = `$(warning) Ollama: Disconnected`;

@@ -17,7 +17,7 @@ export class InlineSuggestionProvider implements vscode.InlineCompletionItemProv
         // Create status bar item to show when we're generating a suggestion
         this.statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 99);
         this.statusBarItem.text = "$(loading~spin) Generating suggestion...";
-        this.statusBarItem.tooltip = "AI Assistant is generating a suggestion";        
+        this.statusBarItem.tooltip = "CodePilot is generating a suggestion";        
     }
 
     async provideInlineCompletionItems(

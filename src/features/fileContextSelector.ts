@@ -77,7 +77,7 @@ export class FileContextSelector {
         const selectedItems = await vscode.window.showQuickPick(items, {
             canPickMany: true,
             placeHolder: 'Select files to include in the context',
-            title: 'AI Assistant - Context Files',
+            title: 'CodePilot - Context Files',
             ignoreFocusOut: true
         });
         
