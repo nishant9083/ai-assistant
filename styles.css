@@ -1218,3 +1218,7 @@ footer {
   transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
 }
+
+.footer-logo-img {
+  filter: brightness(0) invert(1);
+}
