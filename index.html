@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodePilot AI Assistant - Local AI Coding Companion</title>
+    <meta name="description" content="A powerful VS Code extension that provides AI-powered coding assistance using local Ollama models. Keep your code private while getting intelligent suggestions.">
+    <meta name="keywords" content="AI, coding assistant, VS Code extension, Ollama, local AI, code completion, privacy, open source">
+    <meta name="author" content="Nishant">
+    <meta property="og:title" content="CodePilot AI Assistant - Local AI Coding Companion">
+    <meta property="og:description" content="Enhance your coding experience with privacy-focused AI assistance directly in VS Code.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nishant9083.github.io/ai-assistant/">
+    <meta property="og:image" content="resources/bot128.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CodePilot AI Assistant">
+    <meta name="twitter:description" content="Local AI coding assistance for VS Code">
+    <link rel="icon" type="image/png" href="resources/bot128.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scroll-progress"></div>
+    </div>
+    
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="resources/bot.svg" alt="CodePilot AI Assistant Logo" id="logo">
+                <h1>CodePilot</h1>
+            </div>
+            <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#installation">Installation</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+        <div class="hero">
+            <div class="hero-content">
+                <h2>Your Local AI Coding Companion</h2>
+                <p>CodePilot is a powerful VS Code extension that provides intelligent coding assistance using local Ollama models. Keep your code private while getting AI-powered suggestions, explanations, and code generation.</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Private</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">Local</span>
+                        <span class="stat-label">Processing</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">Open</span>
+                        <span class="stat-label">Source</span>
+                    </div>
+                </div>
+                <div class="cta-buttons">
+                    <a href="https://marketplace.visualstudio.com/items?itemName=nishant-vscode-ext.code-pilot" class="primary-button">
+                        <i class="fas fa-download"></i>
+                        Install Extension
+                    </a>
+                    <a href="https://github.com/nishant9083/ai-assistant" class="secondary-button">
+                        <i class="fab fa-github"></i>
+                        View Source
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="demo-window">
+                    <div class="window-header">
+                        <div class="window-controls">
+                            <span class="control close"></span>
+                            <span class="control minimize"></span>
+                            <span class="control maximize"></span>
+                        </div>
+                        <span class="window-title">VS Code - CodePilot AI Assistant</span>
+                    </div>
+                    <div class="window-content">
+                        <img src="resources/image.png" alt="CodePilot in action" onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="features" class="features">
+        <div class="section-header">
+            <h2>Powerful Features</h2>
+            <p>Everything you need for AI-powered coding assistance</p>
+        </div>
+        <div class="feature-cards">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Complete Privacy</h3>
+                <p>All AI processing happens locally on your machine using Ollama. Your code never leaves your computer.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>AI Chat Interface</h3>
+                <p>Interactive chat panel with context-aware conversations and specialized prompt templates.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h3>Code Actions</h3>
+                <p>Right-click on any code to explain, refactor, document, or optimize it with AI assistance.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h3>Chat History</h3>
+                <p>Keep track of all your AI conversations with persistent chat history and easy navigation.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-file-code"></i>
+                </div>
+                <h3>File Context</h3>
+                <p>Include specific files as context for more relevant and accurate AI responses.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3>Theme Integration</h3>
+                <p>Seamlessly adapts to your VS Code theme for a consistent development experience.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="demo" class="demo">
+        <div class="section-header">
+            <h2>See It In Action</h2>
+            <p>Experience the power of local AI assistance</p>
+        </div>
+        <div class="demo-container">
+            <div class="demo-tabs">
+                <button class="demo-tab active" data-tab="chat">AI Chat</button>
+                <button class="demo-tab" data-tab="actions">Code Actions</button>
+                <button class="demo-tab" data-tab="templates">Templates</button>
+            </div>
+            <div class="demo-content">
+                <div class="demo-panel active" id="chat-demo">
+                    <div class="demo-screenshot">
+                        <img src="resources/image.png" alt="AI Chat Interface" onerror="this.style.display='none'">
+                        <div class="demo-overlay">
+                            <h4>Interactive AI Chat</h4>
+                            <p>Ask questions, get explanations, and receive coding assistance through an intuitive chat interface.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-panel" id="actions-demo">
+                    <div class="demo-screenshot">
+                        <div class="code-example">
+                            <pre><code>function calculateFibonacci(n) {
+  // Right-click to explain this function
+  if (n <= 1) return n;
+  return calculateFibonacci(n - 1) + calculateFibonacci(n - 2);
+}</code></pre>
+                        </div>
+                        <div class="demo-overlay">
+                            <h4>Smart Code Actions</h4>
+                            <p>Right-click on any code to get AI-powered explanations, refactoring suggestions, and documentation.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-panel" id="templates-demo">
+                    <div class="demo-screenshot">
+                        <div class="template-list">
+                            <div class="template-item">📝 Code Review</div>
+                            <div class="template-item">🔍 Bug Analysis</div>
+                            <div class="template-item">📚 Documentation</div>
+                            <div class="template-item">⚡ Optimization</div>
+                            <div class="template-item">🧪 Unit Tests</div>
+                        </div>
+                        <div class="demo-overlay">
+                            <h4>Specialized Templates</h4>
+                            <p>Choose from various prompt templates designed for specific coding tasks and workflows.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <div class="section-header">
+            <h2>How It Works</h2>
+            <p>Understanding the magic behind AI Assistant</p>
+        </div>
+        <div class="workflow">
+            <div class="workflow-item">
+                <div class="workflow-number">1</div>
+                <h3>Install Ollama</h3>
+                <p>Set up Ollama on your local machine to run AI models locally.</p>
+            </div>
+            <div class="workflow-arrow">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+            <div class="workflow-item">
+                <div class="workflow-number">2</div>
+                <h3>Install Extension</h3>
+                <p>Add the AI Assistant extension to your VS Code environment.</p>
+            </div>
+            <div class="workflow-arrow">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+            <div class="workflow-item">
+                <div class="workflow-number">3</div>
+                <h3>Configure Settings</h3>
+                <p>Customize the extension to fit your coding preferences.</p>
+            </div>
+            <div class="workflow-arrow">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+            <div class="workflow-item">
+                <div class="workflow-number">4</div>
+                <h3>Start Coding</h3>
+                <p>Enjoy AI-powered assistance without sacrificing privacy.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="installation" class="installation">
+        <div class="section-header">
+            <h2>Quick Start Guide</h2>
+            <p>Get up and running in just a few minutes</p>
+        </div>
+        <div class="installation-grid">
+            <div class="install-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Install Ollama</h3>
+                    <p>Download and install Ollama from the official website</p>
+                    <div class="step-code">
+                        <code># Visit https://ollama.ai and download for your OS</code>
+                    </div>
+                </div>
+            </div>
+            <div class="install-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Pull a Model</h3>
+                    <p>Download a coding model (recommended: codellama)</p>
+                    <div class="step-code">
+                        <code>ollama pull codellama:7b-instruct</code>
+                        <button class="copy-btn" onclick="copyToClipboard('ollama pull codellama:7b-instruct')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="install-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Install Extension</h3>
+                    <p>Add CodePilot to your VS Code from the marketplace</p>
+                    <div class="step-actions">
+                        <a href="https://marketplace.visualstudio.com/items?itemName=nishant-vscode-ext.code-pilot" class="install-link">
+                            <i class="fas fa-external-link-alt"></i>
+                            VS Code Marketplace
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="install-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Start Coding</h3>
+                    <p>Open VS Code and start using AI assistance</p>
+                    <div class="step-actions">
+                        <span class="keyboard-shortcut">
+                            <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>
+                        </span>
+                        <span>then type "CodePilot"</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="installation-note">
+            <div class="note-icon">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            <div class="note-content">
+                <h4>Pro Tips</h4>
+                <ul>
+                    <li>Try different models like <code>codellama:13b</code> for better performance</li>
+                    <li>Use <code>ollama run codellama</code> to test your model first</li>
+                    <li>Check our <a href="https://github.com/nishant9083/ai-assistant">GitHub</a> for troubleshooting</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="section-header">
+            <h2>About CodePilot</h2>
+            <p>Built for developers who value privacy and local control</p>
+        </div>
+        <div class="about-grid">
+            <div class="about-content">
+                <h3>Privacy-First AI Assistance</h3>
+                <p>CodePilot was created with a simple philosophy: you should be able to use AI to enhance your coding without sacrificing privacy. By leveraging Ollama's local AI models, your code never leaves your machine.</p>
+                
+                <h3>Open Source & Community-Driven</h3>
+                <p>This project is completely open source under the MIT License. We welcome contributions, feedback, and suggestions from the developer community to make CodePilot even better.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="download-count">1K+</span>
+                            <span class="stat-label">Downloads</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number">4.8</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number">MIT</span>
+                            <span class="stat-label">License</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tech-stack">
+                <h3>Built With</h3>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <i class="fab fa-js-square"></i>
+                        <span>TypeScript</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-code"></i>
+                        <span>VS Code API</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-robot"></i>
+                        <span>Ollama</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-node-js"></i>
+                        <span>Node.js</span>
+                    </div>
+                </div>
+                
+                <div class="contributors">
+                    <h4>Contributors Welcome</h4>
+                    <p>Join our growing community of developers making AI more accessible and private.</p>
+                    <a href="https://github.com/nishant9083/ai-assistant/contribute" class="contribute-btn">
+                        <i class="fas fa-code-branch"></i>
+                        Contribute
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-logo">
+                    <img src="resources/bot.svg" alt="CodePilot Logo" onerror="this.style.display='none'">
+                    <div>
+                        <h3>CodePilot</h3>
+                        <p>Local AI coding assistance</p>
+                    </div>
+                </div>
+                <div class="footer-description">
+                    <p>Enhance your coding experience with privacy-focused AI assistance. CodePilot brings the power of AI directly to your VS Code editor without compromising your code's security.</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#installation">Installation</a></li>
+                        <li><a href="https://marketplace.visualstudio.com/items?itemName=nishant-vscode-ext.code-pilot">VS Code Marketplace</a></li>
+                        <li><a href="https://github.com/nishant9083/ai-assistant/releases">Changelog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://github.com/nishant9083/ai-assistant">Documentation</a></li>
+                        <li><a href="https://ollama.ai">Ollama</a></li>
+                        <li><a href="https://github.com/nishant9083/ai-assistant/issues">Support</a></li>
+                        <li><a href="https://github.com/nishant9083/ai-assistant/contribute">Contributing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://github.com/nishant9083"><i class="fab fa-github"></i> GitHub</a></li>
+                        <li><a href="https://github.com/nishant9083/ai-assistant/issues"><i class="fas fa-bug"></i> Report Issues</a></li>
+                        <li><a href="https://github.com/nishant9083/ai-assistant/discussions"><i class="fas fa-comments"></i> Discussions</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 CodePilot AI Assistant. Released under the MIT License.</p>
+            <div class="footer-badges">
+                <span class="badge">
+                    <i class="fas fa-shield-alt"></i>
+                    Privacy-First
+                </span>
+                <span class="badge">
+                    <i class="fab fa-osi"></i>
+                    Open Source
+                </span>
+            </div>
+        </div>
+    </footer>    <script src="script.js"></script>
+</body>
+</html>
