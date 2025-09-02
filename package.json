@@ -73,6 +73,42 @@
         "command": "ai-assistant.stopGeneration",
         "title": "CodePilot: Stop AI Generation",
         "icon": "$(debug-stop)"
+      },
+      {
+        "command": "ai-assistant.suggestNextEdit",
+        "title": "CodePilot: Suggest Next Edit"
+      },
+      {
+        "command": "ai-assistant.rebuildIndex",
+        "title": "CodePilot: Rebuild File Index"
+      },
+      {
+        "command": "ai-assistant.showIndexStats",
+        "title": "CodePilot: Show Index Statistics"
+      },
+      {
+        "command": "ai-assistant.explainFunction",
+        "title": "CodePilot: Explain Function"
+      },
+      {
+        "command": "ai-assistant.generateTests",
+        "title": "CodePilot: Generate Tests"
+      },
+      {
+        "command": "ai-assistant.optimizeFunction",
+        "title": "CodePilot: Optimize Function"
+      },
+      {
+        "command": "ai-assistant.generateClassDocs",
+        "title": "CodePilot: Generate Class Documentation"
+      },
+      {
+        "command": "ai-assistant.reviewFile",
+        "title": "CodePilot: Review File"
+      },
+      {
+        "command": "ai-assistant.securityCheck",
+        "title": "CodePilot: Security Check"
       }
     ],
     "keybindings":[
@@ -111,6 +147,12 @@
         "key": "ctrl+alt+d",
         "mac": "cmd+alt+d",
         "when": "editorHasSelection"
+      },
+      {
+        "command": "ai-assistant.suggestNextEdit",
+        "key": "ctrl+alt+n",
+        "mac": "cmd+alt+n",
+        "when": "editorTextFocus"
       }
     ],
     "menus": {
